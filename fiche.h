@@ -39,6 +39,11 @@ typedef struct Fiche_Settings {
     char *domain;
 
     /**
+     * @brief If set, enable anonymous mode, do not add domain to output
+     */
+    bool anonymous;
+
+    /**
      * @brief Path to directory used for storing uploaded pastes
      */
     char *output_dir_path;

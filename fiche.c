@@ -195,6 +195,8 @@ void fiche_init(Fiche_Settings *settings) {
     struct Fiche_Settings def = {
         // domain
         "example.com",
+        // anonymous
+        false,
         // output dir
         "code",
         // port
@@ -368,6 +370,10 @@ static int set_domain_name(Fiche_Settings *settings) {
     } else {
         prefix = "http://";
     }
+
+    if (settings->anonymous) {
+        print_status("Anonymous mode, no domain name returned");
+    } else {
     const int len = strlen(settings->domain) + strlen(prefix) + 1;
 
     char *b = malloc(len);
@@ -381,6 +387,7 @@ static int set_domain_name(Fiche_Settings *settings) {
     settings->domain = b;
 
     print_status("Domain set to: %s.", settings->domain);
+    }
 
     return 0;
 }
@@ -652,12 +659,21 @@ static void *handle_connection(void *args) {
 
     // Write a response to the user
     {
-        // Create an url (additional byte for slash and one for new line)
-        const size_t len = strlen(c->settings->domain) + strlen(slug) + 3;
+        size_t len;
+        if (c->settings->anonymous) {
+            // Create response of slug (additional byte for new line)
+            len = strlen(slug) + 2;
+        } else {
+            // Create an url (additional byte for slash and one for new line)
+            len = strlen(c->settings->domain) + strlen(slug) + 3;
+        } 
 
         char url[len];
+        if (c->settings->anonymous) {
+            snprintf(url, len, "%s%s", slug, "\n");
+        } else {
         snprintf(url, len, "%s%s%s%s", c->settings->domain, "/", slug, "\n");
-
+        }
         // Send the response
         write(c->socket, url, len);
     }
