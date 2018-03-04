@@ -4,13 +4,12 @@ Fiche - Command line pastebin for sharing terminal output.
 -------------------------------------------------------------------------------
 
 License: MIT (http://www.opensource.org/licenses/mit-license.php)
-Repository: https://github.com/solusipse/fiche/
-Live example: http://termbin.com
+Repository: https://github.com/GlacialMagma/tricorder
 
 -------------------------------------------------------------------------------
 
-usage: fiche [-DepbsdolBuw].
-             [-D] [-e] [-d domain] [-p port] [-s slug size]
+usage: fiche [-DeapbsdolBuw].
+             [-D] [-e] [-a] [-d domain] [-p port] [-s slug size]
              [-o output directory] [-B buffer size] [-u user name]
              [-l log file] [-b banlist] [-w whitelist]
 

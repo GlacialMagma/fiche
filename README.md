@@ -136,10 +136,10 @@ To use fiche you have to have netcat installed. You probably already have it - t
 ## Usage
 
 ```
-usage: fiche [-D6epbsdSolBuw].
+usage: fiche [-D6eapbsdSolBuw].
              [-d domain] [-p port] [-s slug size]
              [-o output directory] [-B buffer size] [-u user name]
-             [-l log file] [-b banlist] [-w whitelist] [-S]
+             [-l log file] [-b banlist] [-w whitelist] [-S] [-a]
 ```
 
 These are command line arguments. You don't have to provide any of them to run the application. Default settings will be used in such case. See section below for more info.
@@ -185,6 +185,20 @@ __Default value:__ `localhost`
 
 -------------------------------------------------------------------------------
 
+#### Anonymous `-a`
+
+This will enable anonymous mode, no domain is returned to the user, only the 
+slug.
+
+```
+fiche -a
+```
+
+__Output with this parameter__: `xxxx`
+where x is a randomized character
+
+-------------------------------------------------------------------------------
+
 #### Slug size `-s`
 
 This will force slugs to be of required length:
@@ -196,7 +210,7 @@ fiche -s 6
 __Output url with default value__: `http://localhost/xxxx`,
 where x is a randomized character
 
-__Output url with example value 6__: `http://localhost/xxxx`,
+__Output url with example value 6__: `http://localhost/xxxxxx`,
 where is a randomized character
 
 __Default value:__ 4
