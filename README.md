@@ -1,18 +1,18 @@
-fiche [![Build Status](https://travis-ci.org/solusipse/fiche.svg?branch=master)](https://travis-ci.org/solusipse/fiche)
+tricorder (Base on https://github.com/solusipse/fiche)
 =====
 
-Command line pastebin for sharing terminal output.
+Command line pastebin for sharing terminal output. Based heavily on fiche by solusipse
 
 # Client-side usage
 
-Self-explanatory live examples (using public server):
+Self-explanatory live examples:
 
 ```
-echo just testing! | nc termbin.com 9999
+echo just testing! | nc tricorder.pi-hole.net 9999
 ```
 
 ```
-cat file.txt | nc termbin.com 9999
+cat file.txt | nc tricorder.pi-hole.net 9999
 ```
 
 In case you installed and started fiche on localhost:
@@ -21,16 +21,10 @@ In case you installed and started fiche on localhost:
 ls -la | nc localhost 9999
 ```
 
-You will get an url to your paste as a response, e.g.:
+You will get a token to your paste as a response, e.g.:
 
 ```
-http://termbin.com/ydxh
-```
-
-You can use our beautification service to get any paste colored and numbered. Just ask for it using `l.termbin.com` subdomain, e.g.:
-
-```
-http://l.termbin.com/ydxh
+ydxh
 ```
 
 -------------------------------------------------------------------------------
@@ -45,7 +39,7 @@ You can make your life easier by adding a termbin alias to your rc file. We list
 
 __Linux/macOS:__
 ```
-alias tb="(exec 3<>/dev/tcp/termbin.com/9999; cat >&3; cat <&3; exec 3<&-)"
+alias tb="(exec 3<>/dev/tcp/tricorder.pi-hole.net/9999; cat >&3; cat <&3; exec 3<&-)"
 ```
 
 ```
@@ -60,7 +54,7 @@ _See [#42](https://github.com/solusipse/fiche/issues/42), [#43](https://github.c
 
 __Linux (Bash):__
 ```
-echo 'alias tb="nc termbin.com 9999"' >> .bashrc
+echo 'alias tb="nc tricorder.pi-hole.net 9999"' >> .bashrc
 ```
 
 ```
@@ -70,7 +64,7 @@ echo less typing now! | tb
 __macOS:__
 
 ```
-echo 'alias tb="nc termbin.com 9999"' >> .bash_profile
+echo 'alias tb="nc tricorder.pi-hole.net 9999"' >> .bash_profile
 ```
 
 ```
@@ -83,7 +77,7 @@ echo less typing now! | tb
 
 __Linux (Bash):__
 ```
-echo 'alias tbc="netcat termbin.com 9999 | xclip -selection c"' >> .bashrc
+echo 'alias tbc="netcat tricorder.pi-hole.net 9999 | xclip -selection c"' >> .bashrc
 ```
 
 ```
@@ -93,7 +87,7 @@ echo less typing now! | tbc
 __macOS:__
 
 ```
-echo 'alias tbc="nc termbin.com 9999 | pbcopy"' >> .bash_profile
+echo 'alias tbc="nc tricorder.pi-hole.net 9999 | pbcopy"' >> .bash_profile
 ```
 
 ```
@@ -111,12 +105,27 @@ To use fiche you have to have netcat installed. You probably already have it - t
 
 # Server-side usage
 
-## Installation
+## Docker
+
+1. Pull image
+
+    ``` 
+    docker pull thepihole/tricorder
+    ```
+2. Run container
+
+    ```
+    docker run -it --rm -p 9999:9999 --name tricorder -v /tmp:/code thepihole/tricorder
+    ```
+
+### NEED FUTHER DOCUMENTATION ON EXPOSE PORTS, VOLUMES, AND UID/GID 901
+
+## Stand-Alone Installation
 
 1. Clone:
 
     ```
-    git clone https://github.com/solusipse/fiche.git
+    git clone https://github.com/pi-hole/tricorder.git
     ```
 
 2. Build:
